@@ -2,7 +2,6 @@
 
 AlopexDB is the standard persistence layer for NOETIDE.
 
-PostgreSQL is not the default architecture. It may be used only as a comparison or fallback during compatibility testing.
 
 ## Why AlopexDB
 
