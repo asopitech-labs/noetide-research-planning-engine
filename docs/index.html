@@ -23,12 +23,18 @@
         <span class="brand-mark" aria-hidden="true"></span>
         <span>NOETIDE</span>
       </a>
-      <nav class="nav-links" aria-label="Page sections">
+      <div class="header-actions">
+        <nav class="nav-links" aria-label="Page sections">
         <a href="#loop">Loop</a>
         <a href="#state">State</a>
         <a href="#architecture">Architecture</a>
         <a href="https://github.com/asopitech-labs/noetide-research-planning-engine">GitHub</a>
       </nav>
+        <div class="language-switch" id="language-switch" role="group" aria-label="Language">
+          <button type="button" data-language="ja" aria-pressed="false">日本語</button>
+          <button type="button" data-language="en" aria-pressed="true">EN</button>
+        </div>
+      </div>
     </header>
 
     <main id="top">
@@ -219,5 +225,175 @@
       <span>Apache License 2.0</span>
       <a href="https://github.com/asopitech-labs/noetide-research-planning-engine">asopitech-labs/noetide-research-planning-engine</a>
     </footer>
+
+    <script>
+      (() => {
+        const japanese = {
+          ".nav-links a:nth-child(1)": "循環",
+          ".nav-links a:nth-child(2)": "状態",
+          ".nav-links a:nth-child(3)": "アーキテクチャ",
+          ".graph-node.node-research": "調査",
+          ".graph-node.node-evidence": "エビデンス",
+          ".graph-node.node-plan": "計画",
+          ".graph-node.node-critique": "批評",
+          ".graph-node.node-patch": "パッチ",
+          ".graph-node.node-state": "戦略状態",
+          ".eyebrow": "継続的な調査・計画エンジン",
+          ".hero-statement": "調査が計画を変える。計画が調査を変える。",
+          ".hero-copy": "NOETIDEは、長期的な戦略策定のための熟考エンジンです。ユーザーが所有する永続的な状態、明示的なエビデンス、パッチによる計画更新、そして実行システムが動く前の慎重な推論を支えます。",
+          ".hero-actions .primary": "リポジトリを見る",
+          ".hero-actions .secondary": "アーキテクチャを読む",
+          ".intro .section-kicker": "存在する理由",
+          "#intro-title": "多くのAIツールは、調査・計画・記憶をひとつの会話に閉じ込めています。",
+          ".intro > p": "NOETIDEでは、会話はインターフェースであり、正解の保存場所ではありません。永続する成果物はユーザーが所有する戦略グラフです。エビデンス、前提、仮説、意思決定、リスク、計画の各ステップを、セッションやモデル提供元をまたいで確認できます。",
+          ".loop-section .section-kicker": "動作ループ",
+          "#loop-title": "計画が問いを生み、エビデンスが意思決定を変える。",
+          ".loop-step:nth-child(1) h3": "調査",
+          ".loop-step:nth-child(1) p": "情報源、観察結果、市場シグナル、技術的知見、対立する主張を集めます。",
+          ".loop-step:nth-child(2) h3": "統合",
+          ".loop-step:nth-child(2) p": "エビデンスを事実、仮説、前提、選択肢、未解決の矛盾へ整理します。",
+          ".loop-step:nth-child(3) h3": "計画",
+          ".loop-step:nth-child(3) p": "意思決定と計画ステップを作り、それらを変えうる未知の要素を明らかにします。",
+          ".loop-step:nth-child(4) h3": "パッチ",
+          ".loop-step:nth-child(4) p": "計画全体を作り直さず、影響を受けた戦略の部分だけを更新します。",
+          ".split-section .section-kicker": "ユーザー所有の状態",
+          "#state-title": "戦略はセッションが終わっても残る。",
+          ".split-section > div:first-child > p": "NOETIDEは、熟考の過程を隠れたチャット記憶ではなく、構造化された状態として保存します。モデルのセッションが終了しても、提供元が変わっても、積み重ねた推論を確認・修正・再利用できます。",
+          ".state-board span:nth-child(1)": "情報源",
+          ".state-board span:nth-child(2)": "エビデンス",
+          ".state-board span:nth-child(3)": "事実",
+          ".state-board span:nth-child(4)": "仮説",
+          ".state-board span:nth-child(5)": "前提",
+          ".state-board span:nth-child(6)": "調査課題",
+          ".state-board span:nth-child(7)": "意思決定",
+          ".state-board span:nth-child(8)": "代替案",
+          ".state-board span:nth-child(9)": "リスク",
+          ".state-board span:nth-child(10)": "計画",
+          ".state-board span:nth-child(11)": "実験",
+          ".state-board span:nth-child(12)": "観察結果",
+          ".patch-section .section-kicker": "再生成ではなくパッチ",
+          "#patch-title": "新しいエビデンスが変えるのは、実際に無効になった部分だけ。",
+          ".patch-item.evidence": "エビデンス",
+          ".patch-item.hypothesis": "仮説",
+          ".patch-item.decision": "意思決定",
+          ".patch-item.plan": "計画ステップ",
+          ".patch-section > p": "依存関係を追跡することで、NOETIDEは変化した主張につながる意思決定と計画ステップだけを再検討し、無関係な推論はそのまま残します。修正は全面的な書き直しではなく、レビュー可能なパッチになります。",
+          ".architecture-section .section-kicker": "実行前の熟考",
+          "#architecture-title": "調査入力と下流の実行システムをつなぐ推論レイヤー。",
+          ".arch-layer.ui": "ユーザーインターフェース",
+          ".arch-layer.app": "アプリケーション層",
+          ".arch-layer.runtime": "熟考ランタイム",
+          ".arch-roles:not(.bottom) span:nth-child(1)": "リサーチャー",
+          ".arch-roles:not(.bottom) span:nth-child(2)": "批評役",
+          ".arch-roles:not(.bottom) span:nth-child(3)": "プランナー",
+          ".arch-layer.patches": "戦略パッチ",
+          ".arch-layer.graph": "戦略グラフ",
+          ".arch-roles.bottom span:nth-child(1)": "エビデンス",
+          ".arch-roles.bottom span:nth-child(2)": "イベントログ",
+          ".arch-roles.bottom span:nth-child(3)": "調査バックログ",
+          ".principles-section .section-kicker": "基本原則",
+          "#principles-title": "変わり続ける戦略のために。",
+          ".principles-grid article:nth-child(1) h3": "計画が問いを生む",
+          ".principles-grid article:nth-child(1) p": "計画によって、前提、不足するエビデンス、未解決のリスク、矛盾が見えてきます。",
+          ".principles-grid article:nth-child(2) h3": "エビデンスの出所を残す",
+          ".principles-grid article:nth-child(2) p": "主張を、その根拠となる情報源、観察結果、影響を受ける推論までたどれます。",
+          ".principles-grid article:nth-child(3) h3": "実行は下流に置く",
+          ".principles-grid article:nth-child(3) p": "実行エージェントが動く前に、何が既知で、何が不確かで、何を行う価値があるかをNOETIDEが判断します。",
+          ".use-cases .section-kicker": "ユースケース",
+          "#use-cases-title": "エビデンスが増え続ける領域のための熟考ループ。",
+          ".case-list li:nth-child(1)": "プロダクト計画",
+          ".case-list li:nth-child(2)": "技術アーキテクチャ",
+          ".case-list li:nth-child(3)": "競合調査",
+          ".case-list li:nth-child(4)": "マーケティング戦略",
+          ".case-list li:nth-child(5)": "編集計画",
+          ".case-list li:nth-child(6)": "営業戦略",
+          ".case-list li:nth-child(7)": "エンジニアリング調査",
+          ".case-list li:nth-child(8)": "長期的な調査",
+          ".status-section .section-kicker": "プロジェクト状況",
+          "#status-title": "調査・アーキテクチャ設計フェーズ。",
+          ".status-copy > p": "初期段階では、戦略グラフのスキーマ、エビデンスの出所、調査バックログ、部分的な無効化、パッチによる計画、ループの制御、モデル提供元の抽象化、ユーザー所有の永続的な状態に取り組みます。",
+          ".status-section .button": "GitHubでフォロー"
+        };
+
+        const japaneseAttributes = {
+          ".site-header": {"aria-label": "主要ナビゲーション"},
+          ".brand": {"aria-label": "NOETIDE ホーム"},
+          ".nav-links": {"aria-label": "ページ内セクション"},
+          ".hero-actions": {"aria-label": "主要アクション"},
+          ".state-board": {"aria-label": "戦略状態のオブジェクト種別"},
+          ".patch-flow": {"aria-label": "エビデンスからパッチまでの依存関係"},
+          ".architecture-map": {"aria-label": "NOETIDE アーキテクチャ図"},
+          ".case-list": {"aria-label": "NOETIDEの想定ユースケース"},
+          "#language-switch": {"aria-label": "言語"}
+        };
+
+        const elements = Object.fromEntries(
+          Object.keys(japanese).map((selector) => [selector, document.querySelector(selector)])
+        );
+        const english = Object.fromEntries(
+          Object.entries(elements).map(([selector, element]) => [selector, element ? element.textContent : ""])
+        );
+        const attributeElements = Object.fromEntries(
+          Object.keys(japaneseAttributes).map((selector) => [selector, document.querySelector(selector)])
+        );
+        const englishAttributes = {};
+        Object.entries(japaneseAttributes).forEach(([selector, attributes]) => {
+          englishAttributes[selector] = {};
+          Object.keys(attributes).forEach((name) => {
+            englishAttributes[selector][name] = attributeElements[selector]?.getAttribute(name) || "";
+          });
+        });
+
+        const descriptions = {
+          en: "NOETIDE is a continuous research and planning engine where research changes the plan and the plan changes the research.",
+          ja: "NOETIDEは、調査が計画を変え、計画が調査を変える、継続的な調査・計画エンジンです。"
+        };
+        const ogDescriptions = {
+          en: "User-owned strategy state, patch-based planning, and deliberation before execution.",
+          ja: "ユーザー所有の戦略状態、パッチによる計画更新、そして実行前の熟考。"
+        };
+        const titles = {
+          en: "NOETIDE | Continuous Research and Planning Engine",
+          ja: "NOETIDE | 継続的な調査・計画エンジン"
+        };
+
+        function applyLanguage(language) {
+          const isJapanese = language === "ja";
+          Object.entries(elements).forEach(([selector, element]) => {
+            if (element) element.textContent = isJapanese ? japanese[selector] : english[selector];
+          });
+          Object.entries(attributeElements).forEach(([selector, element]) => {
+            if (!element) return;
+            const values = isJapanese ? japaneseAttributes[selector] : englishAttributes[selector];
+            Object.entries(values).forEach(([name, value]) => element.setAttribute(name, value));
+          });
+
+          document.documentElement.lang = language;
+          document.title = titles[language];
+          document.querySelector('meta[name="description"]').content = descriptions[language];
+          document.querySelector('meta[property="og:description"]').content = ogDescriptions[language];
+          document.querySelectorAll("[data-language]").forEach((button) => {
+            button.setAttribute("aria-pressed", String(button.dataset.language === language));
+          });
+          try {
+            localStorage.setItem("noetide-language", language);
+          } catch (_) {}
+        }
+
+        document.querySelectorAll("[data-language]").forEach((button) => {
+          button.addEventListener("click", () => applyLanguage(button.dataset.language));
+        });
+
+        let preferredLanguage = "en";
+        try {
+          preferredLanguage =
+            localStorage.getItem("noetide-language") ||
+            (navigator.language.toLowerCase().startsWith("ja") ? "ja" : "en");
+        } catch (_) {
+          preferredLanguage = navigator.language.toLowerCase().startsWith("ja") ? "ja" : "en";
+        }
+        applyLanguage(preferredLanguage === "ja" ? "ja" : "en");
+      })();
+    </script>
   </body>
 </html>
