@@ -161,8 +161,7 @@ The main implementation is planned around:
 
 LLMs are treated as replaceable reasoning providers rather than persistent state holders.
 
-AlopexDB is the standard persistence layer for Strategy State, evidence, graph relationships, research backlog, event history, and vector retrieval. PostgreSQL is not the default architecture; it remains only a comparison or fallback option during compatibility testing.
-
+AlopexDB is the standard persistence layer for Strategy State, evidence, graph relationships, research backlog, event history, and vector retrieval. 
 ## Design documents
 
 - [Architecture](design/architecture.md)
