@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NOETIDE | Continuous Research and Planning Engine</title>
+    <meta
+      name="description"
+      content="NOETIDE is a continuous research and planning engine where research changes the plan and the plan changes the research."
+    />
+    <meta property="og:title" content="NOETIDE" />
+    <meta
+      property="og:description"
+      content="User-owned strategy state, patch-based planning, and deliberation before execution."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0b1020" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="site-header" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="NOETIDE home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>NOETIDE</span>
+      </a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#loop">Loop</a>
+        <a href="#state">State</a>
+        <a href="#architecture">Architecture</a>
+        <a href="https://github.com/asopitech-labs/noetide-research-planning-engine">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-graph" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="graph-line line-a"></div>
+          <div class="graph-line line-b"></div>
+          <div class="graph-line line-c"></div>
+          <div class="graph-node node-research">Research</div>
+          <div class="graph-node node-evidence">Evidence</div>
+          <div class="graph-node node-plan">Plan</div>
+          <div class="graph-node node-critique">Critique</div>
+          <div class="graph-node node-patch">Patch</div>
+          <div class="graph-node node-state">Strategy State</div>
+        </div>
+
+        <div class="hero-content">
+          <p class="eyebrow">Continuous Research and Planning Engine</p>
+          <h1 id="hero-title">NOETIDE</h1>
+          <p class="hero-statement">Research changes the plan. The plan changes the research.</p>
+          <p class="hero-copy">
+            NOETIDE is a deliberation engine for long-running strategy work: persistent user-owned state,
+            explicit evidence, patch-based plan updates, and careful reasoning before execution systems act.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="https://github.com/asopitech-labs/noetide-research-planning-engine">View repository</a>
+            <a class="button secondary" href="#architecture">Read the architecture</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section intro" aria-labelledby="intro-title">
+        <div class="section-kicker">Why it exists</div>
+        <h2 id="intro-title">Most AI tools collapse research, planning, and memory into a conversation.</h2>
+        <p>
+          NOETIDE treats conversation as an interface, not the source of truth. The durable artifact is a
+          strategy graph owned by the user, where evidence, assumptions, hypotheses, decisions, risks, and
+          plan steps remain inspectable across sessions and model providers.
+        </p>
+      </section>
+
+      <section id="loop" class="section loop-section" aria-labelledby="loop-title">
+        <div class="section-kicker">Operating loop</div>
+        <h2 id="loop-title">Plans create questions. Evidence changes decisions.</h2>
+        <div class="loop-grid">
+          <article class="loop-step">
+            <span class="step-number">01</span>
+            <h3>Research</h3>
+            <p>Collect sources, observations, market signals, technical findings, and competing claims.</p>
+          </article>
+          <article class="loop-step">
+            <span class="step-number">02</span>
+            <h3>Synthesize</h3>
+            <p>Turn evidence into facts, hypotheses, assumptions, alternatives, and unresolved contradictions.</p>
+          </article>
+          <article class="loop-step">
+            <span class="step-number">03</span>
+            <h3>Plan</h3>
+            <p>Generate decisions and plan steps while exposing the unknowns that could change them.</p>
+          </article>
+          <article class="loop-step">
+            <span class="step-number">04</span>
+            <h3>Patch</h3>
+            <p>Update only the affected parts of the strategy instead of regenerating the whole plan.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="state" class="section split-section" aria-labelledby="state-title">
+        <div>
+          <div class="section-kicker">User-owned state</div>
+          <h2 id="state-title">The strategy survives the session.</h2>
+          <p>
+            NOETIDE stores deliberation as structured state, not hidden chat memory. Model sessions can end,
+            providers can change, and the accumulated reasoning remains available for review, correction, and reuse.
+          </p>
+        </div>
+        <div class="state-board" aria-label="Strategy state object types">
+          <span>Sources</span>
+          <span>Evidence</span>
+          <span>Facts</span>
+          <span>Hypotheses</span>
+          <span>Assumptions</span>
+          <span>Research Questions</span>
+          <span>Decisions</span>
+          <span>Alternatives</span>
+          <span>Risks</span>
+          <span>Plans</span>
+          <span>Experiments</span>
+          <span>Observations</span>
+        </div>
+      </section>
+
+      <section class="section patch-section" aria-labelledby="patch-title">
+        <div class="section-kicker">Patches over regeneration</div>
+        <h2 id="patch-title">New evidence should touch only what it actually invalidates.</h2>
+        <div class="patch-flow" aria-label="Evidence to patch dependency flow">
+          <div class="patch-item evidence">Evidence</div>
+          <div class="patch-arrow" aria-hidden="true">&rarr;</div>
+          <div class="patch-item hypothesis">Hypothesis</div>
+          <div class="patch-arrow" aria-hidden="true">&rarr;</div>
+          <div class="patch-item decision">Decision</div>
+          <div class="patch-arrow" aria-hidden="true">&rarr;</div>
+          <div class="patch-item plan">Plan Step</div>
+        </div>
+        <p>
+          By tracking dependencies, NOETIDE can reconsider the decisions and plan steps connected to a changed
+          claim while leaving unrelated reasoning intact. Corrections become reviewable patches, not rewrites.
+        </p>
+      </section>
+
+      <section id="architecture" class="section architecture-section" aria-labelledby="architecture-title">
+        <div class="section-kicker">Deliberation before execution</div>
+        <h2 id="architecture-title">A reasoning layer between research inputs and downstream executors.</h2>
+        <div class="architecture-map" aria-label="NOETIDE architecture map">
+          <div class="arch-layer ui">User Interface</div>
+          <div class="arch-layer app">Application Layer</div>
+          <div class="arch-layer runtime">Deliberation Runtime</div>
+          <div class="arch-roles">
+            <span>Researcher</span>
+            <span>Critic</span>
+            <span>Planner</span>
+          </div>
+          <div class="arch-layer patches">Strategy Patches</div>
+          <div class="arch-layer graph">Strategy Graph</div>
+          <div class="arch-roles bottom">
+            <span>Evidence</span>
+            <span>Event Log</span>
+            <span>Research Backlog</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section principles-section" aria-labelledby="principles-title">
+        <div class="section-kicker">Core principles</div>
+        <h2 id="principles-title">Built for strategy that keeps changing.</h2>
+        <div class="principles-grid">
+          <article>
+            <h3>Plans create questions</h3>
+            <p>Planning exposes assumptions, missing evidence, unresolved risks, and contradictions.</p>
+          </article>
+          <article>
+            <h3>Evidence has provenance</h3>
+            <p>Claims can be traced back to sources, observations, and the reasoning they affect.</p>
+          </article>
+          <article>
+            <h3>Execution is downstream</h3>
+            <p>NOETIDE decides what is known, uncertain, and worth doing before execution agents take over.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section use-cases" aria-labelledby="use-cases-title">
+        <div>
+          <div class="section-kicker">Use cases</div>
+          <h2 id="use-cases-title">A deliberation loop for domains where evidence keeps arriving.</h2>
+        </div>
+        <ul class="case-list" aria-label="Potential NOETIDE use cases">
+          <li>Product planning</li>
+          <li>Technical architecture</li>
+          <li>Competitive research</li>
+          <li>Marketing strategy</li>
+          <li>Editorial planning</li>
+          <li>Sales strategy</li>
+          <li>Engineering research</li>
+          <li>Long-running investigations</li>
+        </ul>
+      </section>
+
+      <section class="section status-section" aria-labelledby="status-title">
+        <div class="status-copy">
+          <div class="section-kicker">Project status</div>
+          <h2 id="status-title">Research and architecture phase.</h2>
+          <p>
+            Initial work focuses on the Strategy Graph schema, evidence provenance, research backlog,
+            partial invalidation, patch-based planning, loop orchestration, model-provider abstraction,
+            and persistent user-owned state.
+          </p>
+        </div>
+        <a class="button primary" href="https://github.com/asopitech-labs/noetide-research-planning-engine">Follow on GitHub</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>NOETIDE</span>
+      <span>Apache License 2.0</span>
+      <a href="https://github.com/asopitech-labs/noetide-research-planning-engine">asopitech-labs/noetide-research-planning-engine</a>
+    </footer>
+  </body>
+</html>

@@ -4,6 +4,8 @@
 
 > Research changes the plan. The plan changes the research.
 
+[Website](https://asopitech-labs.github.io/noetide-research-planning-engine/) · [Repository](https://github.com/asopitech-labs/noetide-research-planning-engine)
+
 NOETIDE is a deliberation engine for continuously refining decisions through research and planning.
 
 Most AI research tools follow a one-way process:
