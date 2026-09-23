@@ -156,13 +156,23 @@ The main implementation is planned around:
 - TypeScript
 - Node.js
 - XState
-- PostgreSQL
-- pgvector
+- TypeScript / Node.js
+- XState
+- AlopexDB
 - Zod
-- Drizzle ORM
 - React
 
 LLMs are treated as replaceable reasoning providers rather than persistent state holders.
+
+AlopexDB is the standard persistence layer for Strategy State, evidence, graph relationships, research backlog, event history, and vector retrieval. PostgreSQL is not the default architecture; it remains only a comparison or fallback option during compatibility testing.
+
+## Design documents
+
+- [Architecture](design/architecture.md)
+- [Requirements](design/requirements.md)
+- [AlopexDB storage design](design/storage-alopexdb.md)
+- [Model integration](design/model-integration.md)
+- [Research ↔ Planning loop](design/research-planning-loop.md)
 
 ## Reasoning model roles
 
@@ -178,7 +188,9 @@ Used for fast, constrained semantic decisions such as:
 - research question prioritization
 - patch validation
 
-### High-capability reasoning models
+### Codex / high-capability reasoning models
+
+Codex is integrated behind an API-like stateless reasoning adapter. NOETIDE does not treat Codex threads or conversations as persistent application state.
 
 Used for deeper tasks such as:
 
@@ -189,7 +201,7 @@ Used for deeper tasks such as:
 - synthesis
 - plan patch proposals
 
-Model integrations are adapters around the NOETIDE core. The Strategy Graph remains independent of any individual model or provider.
+Model integrations are adapters around the NOETIDE core. The Strategy Graph remains independent of any individual model or provider. Jev handles high-frequency constrained semantic decisions; Codex/ChatGPT-backed reasoning handles deeper synthesis and critique. Both operate on bounded projections of persisted state rather than owning the state themselves.
 
 ## Strategy Graph
 
@@ -289,6 +301,7 @@ NOETIDE is currently in the research and architecture phase.
 
 The initial work focuses on:
 
+- AlopexDB-backed Strategy State
 - Strategy Graph schema
 - evidence provenance
 - research backlog
