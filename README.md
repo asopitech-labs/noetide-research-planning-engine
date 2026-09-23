@@ -153,9 +153,6 @@ NOETIDE is centered on a persistent Strategy Graph rather than an LLM conversati
 
 The main implementation is planned around:
 
-- TypeScript
-- Node.js
-- XState
 - TypeScript / Node.js
 - XState
 - AlopexDB
