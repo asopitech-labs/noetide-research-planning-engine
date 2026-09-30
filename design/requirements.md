@@ -21,6 +21,21 @@ Research
 ↺
 ```
 
+Ambient Research must be able to feed this loop without changing its authority model:
+
+```text
+Source Portfolio
+→ Ambient Research
+→ Raw Item Cache
+→ Signal Inbox
+→ Progressive Enrichment
+→ Evidence Candidate / Research Question
+→ Targeted Research
+→ Evidence
+```
+
+A Signal is not Evidence and must not directly invalidate or update strategy.
+
 A plan is an intermediate reasoning artifact, not the terminal output.
 
 ## Functional requirements
@@ -44,6 +59,11 @@ The persisted state must include:
 - experiments
 - observations
 - outcomes
+- source profiles
+- raw-item cache entries
+- signals and review outcomes
+- coverage snapshots
+- review cadences
 
 ### FR-2 Research-to-planning traceability
 
@@ -130,6 +150,49 @@ Search, files, GitHub, CRM, analytics, and future source systems must enter thro
 
 Execution systems must not mutate Strategy State directly.
 
+### FR-18 Source Portfolio
+
+The system must maintain a governed Source Portfolio with adapter type, topical scope, expected update frequency, collection cadence, quality notes, freshness expectations, cost/access constraints, health, and lifecycle status.
+
+### FR-19 Signal and Signal Inbox
+
+Ambient collection must create normalized, deduplicated Signals in a reviewable Signal Inbox.
+
+A Signal must preserve its raw-item reference and provenance. Supported dispositions must include dismiss, defer, watch, link, promote, and merge. Inbox actions must be auditable events and must not directly mutate Strategy State.
+
+### FR-20 Ambient and Targeted Research
+
+The system must distinguish:
+
+- Ambient Research, triggered by source cadence or source events to notice relevant change
+- Targeted Research, triggered by a persistent Research Question to resolve decision-relevant uncertainty
+
+Both modes must use the same provenance rules, budgets, provider interfaces, and evidence-validation boundary.
+
+### FR-21 Progressive Enrichment
+
+Research intake must support staged enrichment: capture, normalize, triage, contextualize, promote, investigate, and integrate.
+
+Each stage must be able to stop further processing. Promotion thresholds and rationales must be configurable and auditable.
+
+### FR-22 Coverage Model
+
+The system must assess coverage across high-impact objectives, decisions, hypotheses, risks, and Research Questions using dimensions including source diversity, authority, independence, evidence polarity, freshness, and collection health.
+
+Coverage gaps may create or reprioritize Research Questions and suggest Source Portfolio changes. A coverage score must not be treated as evidence or correctness.
+
+### FR-23 Review Cadence
+
+The system must represent collection, Signal Inbox, coverage, strategy, and Source Portfolio review cadences explicitly.
+
+Cadence policy must support both scheduled batches and event-driven urgent review.
+
+### FR-24 Cache as Memory
+
+The system must retain reusable raw research material, canonical identities, content hashes, adapter checkpoints, deduplication relationships, enrichment versions, prior triage outcomes, provenance links, and freshness metadata subject to retention and access policy.
+
+Cached material must undergo freshness and provenance checks before reuse as an Evidence Candidate.
+
 ## Non-functional requirements
 
 ### NFR-1 User-owned state
@@ -180,7 +243,11 @@ The system must support budgets for:
 - model calls
 - elapsed time or operator-defined limits
 
-### NFR-10 Explicit convergence criteria
+### NFR-10 Idempotent intake
+
+Repeated collection of the same item must not create duplicate actionable Signals. Ingestion must support adapter checkpoints, canonicalization, content hashing, and safe retries.
+
+### NFR-11 Explicit convergence criteria
 
 A deliberation cycle must not terminate merely because a model says it is done.
 
