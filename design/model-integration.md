@@ -10,6 +10,9 @@ Jev is used for high-frequency, constrained semantic decisions.
 
 Typical operations:
 
+- Signal relevance, novelty, urgency, and routing
+- Signal-to-question or Signal-to-node matching
+- duplicate / related-item classification
 - evidence relevance
 - support / contradict / irrelevant
 - unchanged / contested / invalid
@@ -33,8 +36,27 @@ Typical operations:
 - critique a plan
 - generate alternatives
 - synthesize conflicting evidence
+- contextualize high-impact Signals
+- propose Signal promotion or Targeted Research
+- identify Coverage Model gaps
 - propose research questions
 - propose Strategy Patches
+
+## Progressive Enrichment routing
+
+Model work follows the intake ladder rather than running deep synthesis on every collected item:
+
+```text
+capture / normalize       deterministic application logic
+triage                    Jev or another constrained classifier
+contextualize / promote   bounded high-capability reasoning when needed
+investigate               Targeted Research providers
+integrate                 validated proposal + existing patch pipeline
+```
+
+Promotion decisions include explicit scores and rationale based on impact, uncertainty, novelty, source quality, coverage gap, and cost. A model may recommend a disposition, but an unpromoted Signal never enters the authoritative Evidence → Hypothesis → Decision → Plan chain.
+
+Ambient collection can run without invoking Codex. Cache as Memory preserves earlier enrichment and triage so later Targeted Research can reuse work with provenance and freshness checks.
 
 ## Stateless Codex adapter
 
@@ -77,7 +99,9 @@ For each operation, the application builds a bounded projection such as:
 
 - objective
 - affected hypotheses and decisions
-- relevant evidence
+- relevant validated evidence
+- promoted Signals or Evidence Candidates when the operation requires them
+- Coverage Model gaps relevant to the operation
 - current plan fragment
 - assumptions
 - protected nodes
