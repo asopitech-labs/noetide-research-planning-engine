@@ -11,6 +11,10 @@ NOETIDE needs one durable state layer for:
 - graph-style dependencies
 - event history
 - research backlog
+- Source Portfolio and source health
+- raw-item cache metadata and adapter checkpoints
+- Signals, Signal Inbox state, and review outcomes
+- Coverage Model snapshots and review cadences
 - source metadata
 - vector retrieval
 - experiments and analytical history
@@ -27,6 +31,10 @@ AlopexDB
 ├─ Event Log
 ├─ Research Backlog
 ├─ Branch metadata
+├─ Source Portfolio / source health
+├─ Raw Item Cache metadata
+├─ Signals / Signal Inbox
+├─ Coverage snapshots / review cadences
 ├─ Source metadata
 ├─ Evidence
 ├─ Vector retrieval
@@ -99,7 +107,89 @@ Append-only audit history:
 - created_at
 - updated_at
 
+### source_profiles
+
+The governed Source Portfolio:
+
+- id
+- workspace_id
+- canonical identity
+- adapter type and configuration reference
+- scope links to objectives, topics, and Research Questions
+- expected update frequency
+- collection and review cadence
+- authority, reliability, and independence notes
+- freshness expectations
+- access/cost constraints
+- lifecycle and health status
+- checkpoint reference
+- last success / next due timestamps
+
+### raw_items
+
+Cache as Memory records:
+
+- id
+- source_profile_id
+- canonical_uri
+- published_at / retrieved_at
+- content_hash
+- blob reference
+- normalized metadata
+- adapter checkpoint
+- extraction/enrichment version
+- freshness and retention metadata
+- duplicate_of
+- created_at
+
+Large content remains in filesystem or S3-compatible blob storage; the database stores stable identity, provenance, and lifecycle metadata.
+
+### signals
+
+- id
+- workspace_id
+- raw_item_id
+- title / concise description
+- detected topics and entities
+- relevance / novelty / urgency
+- likely related state-node ids
+- triage status and rationale
+- inbox disposition
+- promoted object references
+- created_at / reviewed_at
+
+Signal review outcomes are append-only events or separate `signal_reviews` records so repeated classification and human overrides remain auditable.
+
+### coverage_snapshots
+
+- id
+- workspace_id
+- branch_id
+- scope type / scope id
+- dimension values
+- gap classifications
+- contributing source and evidence references
+- collection health summary
+- calculated_at
+- model/policy version
+
+Coverage snapshots are operational assessments. They are not Evidence nodes.
+
+### review_cadences
+
+- id
+- workspace_id
+- scope type / scope id
+- cadence policy
+- urgency overrides
+- last reviewed_at
+- next due_at
+- owner
+- status
+
 ### sources
+
+Material used as provenance for research:
 
 - id
 - canonical_uri
@@ -148,6 +238,8 @@ Vector retrieval is used for candidate discovery, not as the authority for relat
 
 Suitable uses:
 
+- duplicate or near-duplicate raw items and Signals
+- matching Signals to objectives and Research Questions
 - similar source fragments
 - related evidence
 - duplicate research questions
@@ -202,6 +294,10 @@ Example responsibilities:
 - append event
 - apply revision-checked patch
 - query dependent nodes
+- manage Source Portfolio and source checkpoints
+- store and deduplicate raw items
+- enqueue and review Signals
+- store Coverage Model snapshots and review cadences
 - store evidence
 - vector search
 - manage branch metadata
@@ -220,6 +316,9 @@ Before production use, NOETIDE must validate the selected AlopexDB version for:
 - high-frequency small updates
 - vector search quality and index behavior
 - backup/recovery expectations
+- cache retention, tombstones, and access-policy enforcement
+- idempotent retries and adapter checkpoint recovery
+- Signal Inbox throughput and deduplication quality
 - local single-process restrictions where embedded mode is used
 
 These are implementation verification items, not reasons to revert the architecture to PostgreSQL by default.
