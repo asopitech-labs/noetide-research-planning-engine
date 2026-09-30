@@ -17,19 +17,14 @@ NOETIDE is a continuous research and planning engine. Its core responsibility is
 ## System overview
 
 ```text
-┌─────────────────────────────────────────────┐
-│        Continuous Research Intake           │
-│ Source Portfolio / Adapters / Raw Cache     │
-│ Signals / Signal Inbox / Coverage Model     │
-└─────────────────────┬───────────────────────┘
-                      │ progressive enrichment
-                      ▼
-┌─────────────────────────────────────────────┐
-│                    UI                       │
-│ Strategy / Inbox / Research / Changes       │
-└─────────────────────┬───────────────────────┘
-                      │
-                      ▼
+┌───────────────────────┐   ┌───────────────────────────────┐
+│          UI           │   │ Continuous Research Intake    │
+│ Strategy / Inbox /    │   │ Portfolio / Adapters / Cache  │
+│ Research / Changes    │   │ Signals / Coverage Model      │
+└───────────┬───────────┘   └───────────────┬───────────────┘
+            │                               │
+            └───────────────┬───────────────┘
+                            ▼
 ┌─────────────────────────────────────────────┐
 │            TypeScript Application           │
 │ API + domain services + validation          │
@@ -102,6 +97,7 @@ Continuous research intake also maintains operational objects alongside the Stra
 - Raw Item / Cache Entry
 - Signal
 - Signal Review
+- Evidence Candidate
 - Coverage Snapshot
 - Review Cadence
 
@@ -164,7 +160,7 @@ The Progressive Enrichment ladder is capture → normalize → triage → contex
 
 The Coverage Model evaluates whether objectives, decisions, risks, and Research Questions have sufficiently diverse, fresh, authoritative, and operationally healthy source coverage. Coverage gaps may reprioritize the Research Backlog or propose Source Portfolio changes; they do not prove a conclusion.
 
-Review Cadence is policy-driven at four levels: source collection, Signal Inbox review, coverage review, and Source Portfolio review. Event-driven urgency may override a batch schedule without increasing every source's polling frequency.
+Review Cadence is policy-driven at five levels: source collection, Signal Inbox review, coverage review, high-impact strategy review, and Source Portfolio review. Event-driven urgency may override a batch schedule without increasing every source's polling frequency.
 
 Cache as Memory preserves content-addressed raw material, checkpoints, deduplication links, enrichment versions, and prior triage outcomes. Cached material can be reused by Targeted Research only with its original provenance and a freshness check.
 
