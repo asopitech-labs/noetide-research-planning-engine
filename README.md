@@ -47,6 +47,25 @@ Plan Revision
    ↺
 ```
 
+NOETIDE supports two complementary research modes around this loop:
+
+- **Ambient Research** monitors a governed Source Portfolio and turns potentially relevant change into Signals in a reviewable Signal Inbox.
+- **Targeted Research** answers explicit Research Questions from the Research Backlog.
+
+```text
+Source Portfolio
+→ Ambient Research
+→ Raw Item Cache
+→ Signal Inbox
+→ Progressive Enrichment
+→ Evidence Candidate / Research Question
+→ Targeted Research
+→ Evidence
+→ Strategy Graph
+```
+
+A Signal is not Evidence and cannot change the strategy directly. It must be promoted, investigated where necessary, and validated before the existing partial-invalidation and patch flow applies.
+
 A plan is not the final output.
 
 A plan is also a mechanism for discovering what still needs to be known.
@@ -85,6 +104,10 @@ NOETIDE stores research and strategy as persistent structured state owned by the
 
 ```text
 Strategy State
+├─ Source Portfolio
+├─ Raw Item Cache
+├─ Signals / Signal Inbox
+├─ Coverage Snapshots
 ├─ Sources
 ├─ Evidence
 ├─ Facts
@@ -125,7 +148,26 @@ Codex / Claude Code / CMS / CRM / Other Executors
 
 ## Architecture
 
-NOETIDE is centered on a persistent Strategy Graph rather than an LLM conversation.
+NOETIDE is centered on a persistent Strategy Graph rather than an LLM conversation. A continuous research-intake layer feeds that graph without bypassing evidence validation.
+
+```text
+ Source Portfolio → Ambient Research → Signal Inbox
+                              │
+                              ▼
+                    Progressive Enrichment
+                              │
+              ┌───────────────┴───────────────┐
+              ▼                               ▼
+     Evidence Candidate              Research Question
+              │                               │
+              └───────────────┬───────────────┘
+                              ▼
+                       Targeted Research
+                              │
+                              ▼
+                    Validated Evidence
+
+```
 
 ```text
                     User Interface
@@ -169,6 +211,7 @@ AlopexDB is the standard persistence layer for Strategy State, evidence, graph r
 - [AlopexDB storage design](design/storage-alopexdb.md)
 - [Model integration](design/model-integration.md)
 - [Research ↔ Planning loop](design/research-planning-loop.md)
+- [Continuous research intake](design/continuous-research-intake.md)
 
 ## Reasoning model roles
 
@@ -300,6 +343,10 @@ The initial work focuses on:
 - AlopexDB-backed Strategy State
 - Strategy Graph schema
 - evidence provenance
+- Source Portfolio and continuous research intake
+- Signal Inbox and progressive enrichment
+- Coverage Model and review cadences
+- cache-backed research memory
 - research backlog
 - partial invalidation
 - patch-based planning
