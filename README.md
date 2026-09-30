@@ -166,7 +166,6 @@ NOETIDE is centered on a persistent Strategy Graph rather than an LLM conversati
                               │
                               ▼
                     Validated Evidence
-
 ```
 
 ```text
@@ -203,7 +202,8 @@ The main implementation is planned around:
 
 LLMs are treated as replaceable reasoning providers rather than persistent state holders.
 
-AlopexDB is the standard persistence layer for Strategy State, evidence, graph relationships, research backlog, event history, and vector retrieval. 
+AlopexDB is the standard persistence layer for Strategy State, evidence, graph relationships, research backlog, event history, and vector retrieval.
+
 ## Design documents
 
 - [Architecture](design/architecture.md)
@@ -221,6 +221,7 @@ NOETIDE separates different kinds of model work.
 
 Used for fast, constrained semantic decisions such as:
 
+- Signal relevance, novelty, urgency, and routing
 - support / contradict / irrelevant
 - unchanged / contested / invalid
 - relevance classification
