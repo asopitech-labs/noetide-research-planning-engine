@@ -10,16 +10,21 @@ NOETIDE is a continuous research and planning engine. Its core responsibility is
 4. **Execution is downstream.** NOETIDE hands approved plans to external executors.
 5. **Models are replaceable compute providers.** Jev and Codex are adapters, not state owners.
 6. **User-owned persistence.** Long-lived strategic state is stored locally or in user-controlled infrastructure.
+7. **Ambient intake is separate from targeted inquiry.** Continuous collection produces reviewable Signals; explicit Research Questions drive decision-focused research.
+8. **Enrich progressively.** Cheap capture, normalization, and triage precede expensive synthesis or investigation.
+9. **Signals are not evidence.** Only validated Evidence can enter the dependency chain that changes strategy.
 
 ## System overview
 
 ```text
-┌─────────────────────────────────────────────┐
-│                    UI                       │
-│ Strategy / Research / Changes / History     │
-└─────────────────────┬───────────────────────┘
-                      │
-                      ▼
+┌───────────────────────┐   ┌───────────────────────────────┐
+│          UI           │   │ Continuous Research Intake    │
+│ Strategy / Inbox /    │   │ Portfolio / Adapters / Cache  │
+│ Research / Changes    │   │ Signals / Coverage Model      │
+└───────────┬───────────┘   └───────────────┬───────────────┘
+            │                               │
+            └───────────────┬───────────────┘
+                            ▼
 ┌─────────────────────────────────────────────┐
 │            TypeScript Application           │
 │ API + domain services + validation          │
@@ -48,7 +53,8 @@ NOETIDE is a continuous research and planning engine. Its core responsibility is
 ┌─────────────────────────────────────────────┐
 │                  AlopexDB                   │
 │ Strategy Graph / Event Log / Backlog        │
-│ Sources / Evidence / Vector Retrieval       │
+│ Sources / Signals / Evidence / Raw Cache     │
+│ Coverage Snapshots / Vector Retrieval        │
 └─────────────────────────────────────────────┘
 ```
 
@@ -85,6 +91,18 @@ NOETIDE maintains a Strategy Graph with at least the following node types:
 - Observation
 - Outcome
 
+Continuous research intake also maintains operational objects alongside the Strategy Graph:
+
+- Source Profile
+- Raw Item / Cache Entry
+- Signal
+- Signal Review
+- Evidence Candidate
+- Coverage Snapshot
+- Review Cadence
+
+Signals and cache entries are not substitutes for Evidence nodes. They preserve collection context and review history until an item is dismissed, deferred, linked, or promoted.
+
 Representative relations:
 
 ```text
@@ -107,11 +125,50 @@ Plan ─reveals─→ Research Question
 Experiment ─tests───→ Hypothesis
 Experiment ─produces→ Observation
 Observation ─produces→ Evidence
+
+Source Profile ─produces→ Raw Item
+Raw Item ─normalizes_to→ Signal
+Signal ─promotes_to→ Evidence Candidate
+Signal ─opens→ Research Question
 ```
+
+## Research modes and intake pipeline
+
+Ambient Research and Targeted Research share provenance and storage, but they have different triggers and stopping rules.
+
+```text
+AMBIENT
+Source Portfolio
+→ scheduled or event-driven collection
+→ Raw Item Cache
+→ normalize / deduplicate
+→ Signal
+→ Signal Inbox
+→ dismiss / defer / watch / link / promote
+
+TARGETED
+Research Question
+→ bounded research tasks
+→ cached and newly fetched sources
+→ Evidence Candidates
+→ validated Evidence
+→ partial invalidation
+→ Strategy Patch
+```
+
+The Progressive Enrichment ladder is capture → normalize → triage → contextualize → promote → investigate → integrate. Each stage may stop processing. Jev handles low-cost constrained triage; higher-capability reasoning is reserved for ambiguous, high-impact, or investigation-worthy items.
+
+The Coverage Model evaluates whether objectives, decisions, risks, and Research Questions have sufficiently diverse, fresh, authoritative, and operationally healthy source coverage. Coverage gaps may reprioritize the Research Backlog or propose Source Portfolio changes; they do not prove a conclusion.
+
+Review Cadence is policy-driven at five levels: source collection, Signal Inbox review, coverage review, high-impact strategy review, and Source Portfolio review. Event-driven urgency may override a batch schedule without increasing every source's polling frequency.
+
+Cache as Memory preserves content-addressed raw material, checkpoints, deduplication links, enrichment versions, and prior triage outcomes. Cached material can be reused by Targeted Research only with its original provenance and a freshness check.
+
+See [Continuous Research Intake](continuous-research-intake.md) for the complete object and policy model.
 
 ## State transition model
 
-The top-level XState machine is explicit and auditable:
+The deliberation XState machine remains explicit and auditable. Ambient collection may run independently and only enters this loop after a Signal is promoted to a Research Question or validated Evidence.
 
 ```text
 CRITIQUE
